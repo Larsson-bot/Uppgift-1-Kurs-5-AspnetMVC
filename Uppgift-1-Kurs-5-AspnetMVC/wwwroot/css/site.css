@@ -1,0 +1,23 @@
+﻿.container .img-logo {
+    max-width: 100px;
+    max-height: 100px;
+    padding: 0;
+}
+
+.image-class {
+    width: 110px;
+    height: 110px;
+}
+
+.text-placement {
+    text-align: center;
+}
+
+.card:hover {
+    background-color: indianred;
+    color: white;
+}
+
+.bg-project {
+    background-color: #F2F2F2;
+}

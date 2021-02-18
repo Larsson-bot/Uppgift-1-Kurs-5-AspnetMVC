@@ -1,0 +1,8 @@
+﻿@model IEnumerable<ApplicationUser>
+
+<a asp-action="Create">Register new User</a>
+<h5 class="mt-4">Users</h5>
+@foreach (var user in ViewBag.Users)
+{
+    <div>@user.DisplayName</div>
+}

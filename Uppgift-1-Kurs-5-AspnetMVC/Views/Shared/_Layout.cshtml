@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Uppgift_1_Kurs_5_AspnetMVC</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/9ad6fc5bf0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="container">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-controller="" asp-action="">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-controller="Admins" asp-action="Index">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" asp-controller="" asp-action=""></a>
+                    </li>
+                </ul>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+
+                    <img class="img-logo" src="~/Images/526cdbe5-ce68-4422-947e-639cfc7ddb3f_200x200.png">
+
+
+                    <a class="navbar-brand" href="#">AdministrationPortal</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarText">
+
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+        }
+        else
+        { <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+           
+                        <img class="img-logo " src="/Images/addef8cf-7e7e-4dea-b1c0-228ab858c26d_200x200.png">
+                   
+
+                    <a class="navbar-brand ms-2 nav-link active">EC Education</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarText">
+
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>}
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - Uppgift_1_Kurs_5_AspnetMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
