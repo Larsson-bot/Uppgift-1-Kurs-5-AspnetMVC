@@ -41,8 +41,8 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Services
                     if (!_roleManager.Roles.Any())
                     {
                         await _roleManager.CreateAsync(new IdentityRole("Admin"));
-                        await _roleManager.CreateAsync(new IdentityRole("Teacher"));
                         await _roleManager.CreateAsync(new IdentityRole("Student"));
+                        await _roleManager.CreateAsync(new IdentityRole("Teacher"));
                     };
                 }
                 await _userManager.AddToRoleAsync(user, "Admin");

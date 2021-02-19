@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Uppgift_1_Kurs_5_AspnetMVC.Entities.SchoolClassStudent>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Add Student To Class</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Students
+            </th>
+            <th>
+              
+                    </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var student in ViewBag.Students) {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.SchoolClass.ClassName)*@
+                @student.DisplayName
+
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@student.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@student.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@student.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

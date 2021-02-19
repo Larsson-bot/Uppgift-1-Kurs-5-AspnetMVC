@@ -1,0 +1,49 @@
+﻿@model Uppgift_1_Kurs_5_AspnetMVC.Entities.SchoolClassStudent
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    @foreach (var student in ViewBag.Student)
+    {
+        <h4>@student.DisplayName</h4>
+    }
+
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SchoolClass.ClassName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SchoolClass.ClassName)
+        </dd>
+        @foreach (var student in ViewBag.Student)
+        {
+            <dt class="col-sm-2">
+                Email
+            </dt>
+            <dd class="col-sm-10">
+                @student.Email
+            </dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.StudentId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@*@foreach (var student in ViewBag.Student)
+{
+    <dt class="col-sm-1">
+        StudentName:
+    </dt>
+    <dd class="col-sm-11">
+        @student.DisplayName
+    </dd>
+}*@

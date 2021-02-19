@@ -23,9 +23,11 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.Users = _userManager.Users;
+            ViewBag.Students = await _userManager.GetUsersInRoleAsync("Student");
+            ViewBag.Teachers = await _userManager.GetUsersInRoleAsync("Teacher");
+
             return View();
         }
 
