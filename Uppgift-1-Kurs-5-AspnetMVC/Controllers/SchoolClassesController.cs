@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Uppgift_1_Kurs_5_AspnetMVC.Data;
 using Uppgift_1_Kurs_5_AspnetMVC.Entities;
+using Uppgift_1_Kurs_5_AspnetMVC.Models;
 
 namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
 {
@@ -17,6 +18,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
     {
         private readonly SchoolPortalDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+
         public SchoolClassesController(SchoolPortalDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -47,17 +49,42 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             {
                 return NotFound();
             }
-      
+            var classlist = new List<SchoolClassViewModel>();
+            var users = await _userManager.GetUsersInRoleAsync("Student");
             var schoolClass = await _context.SchoolClasses
                 .FirstOrDefaultAsync(m => m.Id == id);
             schoolClass.Teacher = await _userManager.Users.FirstOrDefaultAsync(au => au.Id == schoolClass.TeacherId);
-            if (schoolClass == null)
+        
+            var school = _context.SchoolClassStudents.ToList();
+            foreach (var user in school)
             {
-                return NotFound();
+                var studentfind = await _userManager.FindByIdAsync(user.StudentId);
+                if(user.SchoolClassId == schoolClass.Id)
+                {
+                    classlist.Add(new SchoolClassViewModel
+                    {
+
+                        Id = schoolClass.Id,
+                        TeacherId = schoolClass.TeacherId,
+                        StudentId = user.StudentId,
+                        Student = studentfind
+                    }); ;
+                }
+
+
+
+
             }
-           
-            return View(schoolClass);
-        }
+            //school.FirstOrDefault(s => s.SchoolClassId == schoolClass.Id)
+            ViewBag.ClassInfo = classlist;
+            if (schoolClass == null)
+                {
+                    return NotFound();
+                }
+
+                return View(schoolClass);
+            }
+       
 
         // GET: SchoolClasses/Create
         public async Task<IActionResult> Create()

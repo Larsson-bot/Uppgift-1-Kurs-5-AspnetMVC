@@ -5,6 +5,11 @@
 }
 
 <h1>Details</h1>
+@*@foreach (var user in ViewBag.ClassInfo)
+{
+    <div></div>
+}*@
+
 
 <div>
     <h4>@Model.ClassName</h4>
@@ -16,12 +21,15 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Teacher.DisplayName)
         </dd>
+        @foreach(var user in ViewBag.ClassInfo)
+        {
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SchoolClassStudents)
+        Student
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SchoolClassStudents)
+            @user.Student.DisplayName
         </dd>
+        }
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Created)
         </dt>

@@ -160,6 +160,8 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         {
             var schoolClassStudent = await _context.SchoolClassStudents.FindAsync(id);
             _context.SchoolClassStudents.Remove(schoolClassStudent);
+            var user = await _userManager.FindByIdAsync(id);
+            await _userManager.DeleteAsync(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -14,7 +14,7 @@
             <a class="nav-link text-dark"  asp-controller="SchoolClasses" asp-action="Index">Classes</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link me-3" href="#">Search for literature</a>
+            <a class="nav-link text-dark" asp-controller="Users" asp-action="GetMyClassInfo">Classes</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">My LIA</a>
@@ -61,9 +61,7 @@
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
+      
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
