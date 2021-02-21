@@ -101,6 +101,14 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ClassName,TeacherId,Created")] SchoolClass schoolClass)
         {
+
+            var checkIfClassNameExists = _context.SchoolClasses.Where(sc => sc.ClassName == schoolClass.ClassName);
+            if(checkIfClassNameExists.Count() == 1)
+            {
+            
+                return  RedirectToAction("ClassAlreadyExists", "Admins"); 
+            };
+           
             if (ModelState.IsValid)
             {
                 schoolClass.Id = Guid.NewGuid();

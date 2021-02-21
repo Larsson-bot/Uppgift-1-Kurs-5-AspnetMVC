@@ -21,17 +21,18 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var student in ViewBag.Students) {
+@foreach (var item in ViewBag.Students) {
         <tr>
             <td>
-                @*@Html.DisplayFor(modelItem => item.SchoolClass.ClassName)*@
-                @student.DisplayName
+                
+                @item.Student.DisplayName
+                @*@student.DisplayName*@
 
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@student.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@student.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@student.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
             </td>
         </tr>
 }

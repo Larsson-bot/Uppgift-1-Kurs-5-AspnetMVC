@@ -2,14 +2,38 @@
 <h2 class="mb-2">Register</h2>
 <a asp-action="Create">Register new User</a>
 <h4 class="mt-4">Students</h4>
-@foreach (var user in ViewBag.Students)
-{
-    <div>@user.DisplayName</div>
-}
-<h4 class="mt-4">Teachers</h4>
-@foreach (var user in ViewBag.Teachers)
-{
-    <div>@user.DisplayName</div>
-}
+<div class="row col-md-12">
+
+    @foreach (var user in ViewBag.Students)
+    {
+
+        <div class="card m-4" style="width: 16rem;">
+            <span class="text-placement">
+                <img src="~/Images/Message 4.jpg" class="card-img-top image-class rounded-circle  " alt="...">
+            </span>
+            <div class="card-body">
+                <h6 class="card-text text-placement mt-1">@user.FirstName @user.LastName</h6>
+                @*<p class="text-placement">@user.Role</p>*@
+            </div>
+        </div>
+
+
+    }
+    <h4 class="mt-4">Teachers</h4>
+    @foreach (var user in ViewBag.Teachers)
+    {
+        <div class="card m-4" style="width: 16rem;">
+            <span class="text-placement">
+                <img src="~/Images/Message 4.jpg" class="card-img-top image-class rounded-circle  " alt="...">
+            </span>
+            <div class="card-body">
+                <h6 class="card-text text-placement mt-1">@user.FirstName @user.LastName</h6>
+                @*<p class="text-placement">@user.Role</p>*@
+            </div>
+        </div>
+    }
+</div>
+
+
 
 

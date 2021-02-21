@@ -52,23 +52,8 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
                 };
 
                 var result = await _userService.CreateNewUserAsync(user, model.Password);
-                var users = await _userManager.GetUsersInRoleAsync("Admin");
                 if (result.Succeeded)
                 {
-                    //if (model.Role == null || model.Role == "Admin")
-                    //{
-                    //    if (users.Count < 1)
-                    //    {
-                    //        await _userService.AddUserToRole(user, model.Role);
-                    //    }
-                    //    else
-                    //    {
-                    //        await _userService.AddUserToRole(user, "Student");
-                    //    }
-
-                    //}
-                    //else
-                    //        await _userService.AddUserToRole(user, model.Role);
                     await _userService.AddUserToRole(user, model.Role);
                 }
 
@@ -80,6 +65,16 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             }
 
 
+            return View();
+        }
+
+        public IActionResult NoStudentError()
+        {
+            return View();
+        }
+
+        public IActionResult ClassAlreadyExists()
+        {
             return View();
         }
     }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Uppgift_1_Kurs_5_AspnetMVC.Data;
 using Uppgift_1_Kurs_5_AspnetMVC.Entities;
+using Uppgift_1_Kurs_5_AspnetMVC.Models;
 
 namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
 {
@@ -27,14 +28,37 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         // GET: SchoolClassStudents
         public async Task<IActionResult> Index()
         {
-            ViewBag.Students = await _userManager.GetUsersInRoleAsync("Student");
+            //ViewBag.Students = await _userManager.GetUsersInRoleAsync("Student");
+            var studentlist = new List<StudentViewModel>();
+            var students = await _userManager.GetUsersInRoleAsync("Student");
+
+            var school = _context.SchoolClassStudents.ToList();
+            foreach (var user in school)
+            {
+                var studentfind = await _userManager.FindByIdAsync(user.StudentId);
+                if (user.SchoolClassId == Guid.Empty )
+                {
+                  
+                }
+                else
+                {
+                    studentlist.Add(new StudentViewModel
+                    {
+
+                        Id = user.SchoolClassId,
+                        StudentId = user.StudentId,
+                        Student = studentfind
+                    }); ;
+                }
+                
+            }
+            ViewBag.Students = studentlist;
 
             var schoolPortalDbContext = _context.SchoolClassStudents.Include(s => s.SchoolClass);
 
 
             return View(await schoolPortalDbContext.ToListAsync());
         }
-
         // GET: SchoolClassStudents/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -59,7 +83,15 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         public async Task<IActionResult> Create()
         {
             var students = await _userManager.GetUsersInRoleAsync("Student");
-            ViewData["StudentId"] = new SelectList(students, "Id", "DisplayName","Select a Student");
+            var school = _context.SchoolClassStudents.ToList();
+            var users = students.Where(x => !school.Any(z => z.StudentId == x.Id)).ToList();
+  
+            if(users.Count() == 0)
+            {
+                return RedirectToAction("NoStudentError", "Admins");
+            }
+          
+            ViewData["StudentId"] = new SelectList(users, "Id", "DisplayName","Select a Student");
             ViewData["SchoolClassId"] = new SelectList(_context.SchoolClasses, "Id", "ClassName");
             return View();
         }
@@ -71,8 +103,12 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StudentId,SchoolClassId")] SchoolClassStudent schoolClassStudent)
         {
+
+         
+            
             if (ModelState.IsValid)
             {
+
                 _context.Add(schoolClassStudent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -141,7 +177,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.Students = _userManager.Users.Where(s => s.Id == id);
             var schoolClassStudent = await _context.SchoolClassStudents
                 .Include(s => s.SchoolClass)
                 .FirstOrDefaultAsync(m => m.StudentId == id);
