@@ -10,7 +10,6 @@
 </head>
 <body>
     <header>
-
         @if (User.IsInRole("Admin"))
         {
             <div class="container">
@@ -22,17 +21,13 @@
                         <a class="nav-link active" asp-controller="SchoolClassStudents" asp-action="Index">Students</a>
                     </li>
                     <li class="nav-item">
-                 
                         <a class="nav-link active" asp-controller="Admins" asp-action="Index">Register</a>
                     </li>
                 </ul>
             </div>
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-
-                    <img class="img-logo" src="~/Images/526cdbe5-ce68-4422-947e-639cfc7ddb3f_200x200.png">
-
-
+                    <img class="img-logo me-3" src="~/Images/526cdbe5-ce68-4422-947e-639cfc7ddb3f_200x200.png">
                     <a class="navbar-brand" href="#">AdministrationPortal</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -47,16 +42,12 @@
         else
         { <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-           
-                        <img class="img-logo " src="/Images/addef8cf-7e7e-4dea-b1c0-228ab858c26d_200x200.png">
-                   
-
+                    <img class="img-logo me-3" src="/Images/addef8cf-7e7e-4dea-b1c0-228ab858c26d_200x200.png">
                     <a class="navbar-brand ms-2 nav-link active">EC Education</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
-
                         <partial name="_LoginPartial" />
                     </div>
                 </div>

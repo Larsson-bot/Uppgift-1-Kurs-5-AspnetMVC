@@ -1,6 +1,4 @@
-﻿
-
-<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+﻿<ul class="navbar-nav me-auto mb-2 mb-lg-0">
     @if (SignInManager.IsSignedIn(User))
     {
 
@@ -16,7 +14,6 @@
         <li class="nav-item">
             <a class="nav-link" href="#">My LIA</a>
         </li>
-
     }
     else
     {
@@ -37,9 +34,6 @@
         </li>
     }
 </ul>
-
-
-
 <ul class="navbar-nav mb-2 mb-lg-0">
     @if (SignInManager.IsSignedIn(User))
     {
@@ -49,15 +43,12 @@
                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.FindFirst("DisplayName").Value</a>
                 @if (User.IsInRole("Admin"))
                 {
-
                     <i class="fas fa-user-edit ms-2 me-3"></i>
                 }
                 else
                 {
                     <i class="fas fa-user-graduate ms-2 me-3"></i>
                 }
-
-
             </div>
         </li>
         <li class="nav-item">
@@ -68,6 +59,9 @@
     }
     else
     {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Admins" asp-action="Contact" >Contact</a>
+        </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>

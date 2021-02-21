@@ -37,7 +37,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             {
            
                 var studentfind = await _userManager.FindByIdAsync(user.StudentId);
-                if (user.SchoolClassId == Guid.Empty )
+                if (user.SchoolClassId == Guid.Empty)
                 {
                   
                 }

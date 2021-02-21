@@ -28,17 +28,11 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         // GET: SchoolClasses
         public async Task<IActionResult> Index()
         {
-      
-
             var classes = await _context.SchoolClasses.ToListAsync();
             foreach(var schoolclass in classes)
             {
                 schoolclass.Teacher = await _userManager.Users.FirstOrDefaultAsync(au => au.Id == schoolclass.TeacherId);
             }
-
-          
-
-
             return View(classes);
         }
 
@@ -50,7 +44,6 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
                 return NotFound();
             }
             var classlist = new List<SchoolClassViewModel>();
-            var users = await _userManager.GetUsersInRoleAsync("Student");
             var schoolClass = await _context.SchoolClasses.FirstOrDefaultAsync(m => m.Id == id);
 
             schoolClass.Teacher = await _userManager.Users.FirstOrDefaultAsync(au => au.Id == schoolClass.TeacherId);
@@ -84,8 +77,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.Teachers = await _userManager.GetUsersInRoleAsync("Teacher");
-            return View();
-    
+            return View(); 
         }
 
         // POST: SchoolClasses/Create
@@ -97,7 +89,6 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             var checkIfClassNameExists = _context.SchoolClasses.Where(sc => sc.ClassName == schoolClass.ClassName);
             if(checkIfClassNameExists.Count() == 1)
             {
-            
                 return  RedirectToAction("ClassAlreadyExists", "Admins"); 
             };
            

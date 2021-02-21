@@ -27,7 +27,6 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         {
             ViewBag.Students = await _userManager.GetUsersInRoleAsync("Student");
             ViewBag.Teachers = await _userManager.GetUsersInRoleAsync("Teacher");
-
             return View();
         }
 
@@ -40,9 +39,13 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserViewModel model)
         {
+            var checkIfEmailExists = _userManager.Users.Where(x => x.Email == model.Email);
+            if (checkIfEmailExists.Count() > 0)
+            {
+                return RedirectToAction("EmailAlreadyExists");
+            }
             if (ModelState.IsValid)
             {
-
                 var user = new ApplicationUser
                 {
                     FirstName = model.FirstName,
@@ -50,21 +53,17 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
                     Email = model.Email,
                     UserName = model.Email,
                 };
-
                 var result = await _userService.CreateNewUserAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await _userService.AddUserToRole(user, model.Role);
                 }
-
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
                 return RedirectToAction("Index");
             }
-
-
             return View();
         }
 
@@ -83,7 +82,9 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             return View();
         }
 
-
-
+        public IActionResult EmailAlreadyExists()
+        {
+            return View();
+        }
     }
 }
