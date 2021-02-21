@@ -51,11 +51,11 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             }
             var classlist = new List<SchoolClassViewModel>();
             var users = await _userManager.GetUsersInRoleAsync("Student");
-            var schoolClass = await _context.SchoolClasses
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var schoolClass = await _context.SchoolClasses.FirstOrDefaultAsync(m => m.Id == id);
+
             schoolClass.Teacher = await _userManager.Users.FirstOrDefaultAsync(au => au.Id == schoolClass.TeacherId);
-        
             var school = _context.SchoolClassStudents.ToList();
+
             foreach (var user in school)
             {
                 var studentfind = await _userManager.FindByIdAsync(user.StudentId);
@@ -63,25 +63,19 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
                 {
                     classlist.Add(new SchoolClassViewModel
                     {
-
                         Id = schoolClass.Id,
                         TeacherId = schoolClass.TeacherId,
                         StudentId = user.StudentId,
                         Student = studentfind
-                    }); ;
+                    }); 
                 }
-
-
-
-
             }
-            //school.FirstOrDefault(s => s.SchoolClassId == schoolClass.Id)
             ViewBag.ClassInfo = classlist;
+            
             if (schoolClass == null)
                 {
                     return NotFound();
                 }
-
                 return View(schoolClass);
             }
        
@@ -95,8 +89,6 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         }
 
         // POST: SchoolClasses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ClassName,TeacherId,Created")] SchoolClass schoolClass)
@@ -119,6 +111,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             }
             return View(schoolClass);
         }
+
 
         // GET: SchoolClasses/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -178,9 +171,35 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             {
                 return NotFound();
             }
+            var classlist = new List<SchoolClassViewModel>();
+            var schoolClass = await _context.SchoolClasses.FirstOrDefaultAsync(m => m.Id == id);
+            var users = await _userManager.GetUsersInRoleAsync("Student");
 
-            var schoolClass = await _context.SchoolClasses
-                .FirstOrDefaultAsync(m => m.Id == id);
+            schoolClass.Teacher = await _userManager.Users.FirstOrDefaultAsync(au => au.Id == schoolClass.TeacherId);
+            var school = _context.SchoolClassStudents.ToList();
+
+            foreach (var user in school)
+            {
+                var studentfind = await _userManager.FindByIdAsync(user.StudentId);
+                if (user.SchoolClassId == schoolClass.Id)
+                {
+                    classlist.Add(new SchoolClassViewModel
+                    {
+                        Id = schoolClass.Id,
+                        TeacherId = schoolClass.TeacherId,
+                        StudentId = user.StudentId,
+                        Student = studentfind
+                    });
+                }
+            }
+            if(classlist.Count == 0)
+            {
+                ViewBag.ClassInfo = null;
+            }
+            else
+            ViewBag.ClassInfo = classlist;
+        
+        
             if (schoolClass == null)
             {
                 return NotFound();
@@ -192,7 +211,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         // POST: SchoolClasses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id, SchoolClassStudent schoolClassStudent)
         {
             var schoolClass = await _context.SchoolClasses.FindAsync(id);
             _context.SchoolClasses.Remove(schoolClass);
@@ -204,5 +223,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         {
             return _context.SchoolClasses.Any(e => e.Id == id);
         }
+
+
     }
 }

@@ -1,8 +1,40 @@
-﻿@model IEnumerable<SchoolClassViewModel>
+﻿@model IEnumerable<StudentViewModel>
 
-@foreach(var user in Model)
+@foreach (var classname in ViewBag.ClassName)
 {
-<div>@user.Student.DisplayName</div>
-
+    <h2 class="text-center">@classname.ClassName</h2>
 }
+<div class="row col-md-12">
+    @foreach (var teacher in ViewBag.Teacher)
+    {
+        <div class="card m-4" style="width: 16rem;">
+            <span class="text-placement">
+                <img src="~/Images/Message 4.jpg" class="card-img-top image-class rounded-circle  " alt="...">
+            </span>
+            <div class="card-body">
+                <h6 class="card-text text-placement mt-1">@teacher.DisplayName</h6>
+                <p class="text-placement">Teacher</p>
+            </div>
+        </div>
+    }
+
+    @foreach (var user in Model)
+    {
+
+        <div class="card m-4" style="width: 16rem;">
+            <span class="text-placement">
+                <img src="~/Images/Message 4.jpg" class="card-img-top image-class rounded-circle  " alt="...">
+            </span>
+            <div class="card-body">
+                <h6 class="card-text text-placement mt-1">@user.Student.DisplayName</h6>
+                <p class="text-placement">Student</p>
+            </div>
+        </div>
+
+    }
+</div>
+    @*@foreach(var user in ViewBag.Class)
+        {
+            @user.Student.DisplayName
+        }*@
 

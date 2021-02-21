@@ -77,5 +77,13 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         {
             return View();
         }
+
+        public IActionResult StudentsInClassError()
+        {
+            return View();
+        }
+
+
+
     }
 }

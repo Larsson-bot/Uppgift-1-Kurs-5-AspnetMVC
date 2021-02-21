@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Uppgift_1_Kurs_5_AspnetMVC.Data;
+using Uppgift_1_Kurs_5_AspnetMVC.Entities;
 
 namespace Uppgift_1_Kurs_5_AspnetMVC.Models
 {
@@ -12,5 +13,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Models
         public string StudentId { get; set; }
 
         public virtual ApplicationUser Student { get; set; }
+
+        public virtual SchoolClass GetSchoolClass { get; set; }
     }
 }

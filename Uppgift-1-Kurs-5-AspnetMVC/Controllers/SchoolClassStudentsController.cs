@@ -35,6 +35,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
             var school = _context.SchoolClassStudents.ToList();
             foreach (var user in school)
             {
+           
                 var studentfind = await _userManager.FindByIdAsync(user.StudentId);
                 if (user.SchoolClassId == Guid.Empty )
                 {
@@ -42,18 +43,20 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
                 }
                 else
                 {
+                    var classname = _context.SchoolClasses.Where(x => x.Id == user.SchoolClassId);
+
                     studentlist.Add(new StudentViewModel
                     {
-
+                        GetSchoolClass = classname.FirstOrDefault(x => x.Id == user.SchoolClassId),
                         Id = user.SchoolClassId,
                         StudentId = user.StudentId,
                         Student = studentfind
-                    }); ;
+                    }) ;
                 }
                 
             }
             ViewBag.Students = studentlist;
-
+          
             var schoolPortalDbContext = _context.SchoolClassStudents.Include(s => s.SchoolClass);
 
 
@@ -97,15 +100,12 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Controllers
         }
 
         // POST: SchoolClassStudents/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StudentId,SchoolClassId")] SchoolClassStudent schoolClassStudent)
         {
 
-         
-            
+
             if (ModelState.IsValid)
             {
 

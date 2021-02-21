@@ -16,18 +16,19 @@
                 Students
             </th>
             <th>
-              
-                    </th>
+                Class
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in ViewBag.Students) {
         <tr>
             <td>
-                
                 @item.Student.DisplayName
-                @*@student.DisplayName*@
-
+            </td>
+            <td>
+            @item.GetSchoolClass.ClassName
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |

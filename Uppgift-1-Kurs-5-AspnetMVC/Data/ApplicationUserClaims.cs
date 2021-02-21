@@ -18,7 +18,7 @@ namespace Uppgift_1_Kurs_5_AspnetMVC.Data.Migrations
         {
             var _identity = await base.GenerateClaimsAsync(user);
             _identity.AddClaim(new Claim("DisplayName", user.DisplayName ?? ""));
-            return _identity;
+             return _identity;
             
         }
     }
